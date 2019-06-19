@@ -1,7 +1,11 @@
 import React from 'react';
 import Section from "./Section";
 
-const genres = ['trending', 'sciFi', 'comedy']
+const genres = {
+    trending: 'Trending Now',
+    sciFi: 'Sci-Fi Hits',
+    comedy: 'Comedy Hits'
+}
 
 export default class App extends React.Component {
 
@@ -11,7 +15,7 @@ export default class App extends React.Component {
 
 
     render() {
-        const sections = genres.map((genre) => (<Section genre={genre} key={genre}/>))
+        const sections = Object.keys(genres).map((genre) => (<Section genre={genre} title={genres[genre]} key={genre}/>))
 
         return (
             <div>

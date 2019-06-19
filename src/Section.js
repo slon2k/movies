@@ -51,16 +51,15 @@ export default class Section  extends React.Component {
 
     render() {
         console.log(this.state);
-        const {genre} = this.props;
+        const {title} = this.props;
         const {movies, loading, total} = this.state;
-        const sectionTitle = genre;
         const itemsLoaded = movies.length;
         const movieList = movies.map((movie) => (<Movie movie={movie} key={movie.id}/>))
 
         return(
             <section>
                 <header>
-                    <h2>{sectionTitle}</h2>
+                    <h2>{title}</h2>
                 </header>
                 { loading && spinner()}
                 {movieList}

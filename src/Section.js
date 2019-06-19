@@ -1,26 +1,51 @@
 import React from 'react'
 import Movie from "./Movie";
+import Api from "./Api";
 
-const Section = ({sectionTitle}) => {
-    return(
-        <section>
-            <header>
-                <h3>{sectionTitle}</h3>
-            </header>
-            <Movie
-                src = "http://image.tmdb.org/t/p/original/uovH5k4BAEPqXqxgwVrTtqH169g.jpg"
-                title = 'Godzilla: King of the Monsters'
-                score = '6.4'
-                overview = "The new story follows the heroic efforts of the crypto-zoological agency Monarch as its
-                members face off against a battery of god-sized monsters, including the mighty Godzilla, who collides
-                with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah.
-                When these ancient super-species—thought to be mere myths—rise again, they all vie for supremacy,
-                leaving humanity’s very existence hanging in the balance"
-            />
+export default class Section  extends React.Component {
 
-        </section>
-    )
+    state = {
+        loading: true,
+        total: null,
+        movies: []
+    }
 
+    addMovies({moviesToAdd}) {
+        const {movies} = this.state;
+        this.setState({movies: [...movies, ...moviesToAdd], loading: false});
+    }
+
+    setTotal({total}) {
+        this.setState({total});
+    }
+
+    api = new Api();
+
+    componentDidMount() {
+        const {genre} = this.props;
+        this.api.getMovies({genre})
+            .then(({results, total_results}) => {
+                this.setTotal({total: total_results});
+                this.addMovies({moviesToAdd: results})
+            })
+            .catch(console.log)
+    }
+
+    render() {
+        console.log(this.state);
+        const {genre} = this.props;
+        const {movies} = this.state;
+        const sectionTitle = genre;
+        const movieList = movies.map((movie) => (<Movie movie={movie} key={movie.id}/>))
+
+        return(
+            <section>
+                <header>
+                    <h3>{sectionTitle}</h3>
+                </header>
+                {movieList}
+
+            </section>
+        )
+    }
 }
-
-export default Section

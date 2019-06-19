@@ -8,6 +8,12 @@ const spinner = () => {
     return <div>Loading ...</div>
 }
 
+const styles = {
+    button: {
+        margin: 20
+    }
+}
+
 export default class Section  extends React.Component {
 
     state = {
@@ -58,13 +64,17 @@ export default class Section  extends React.Component {
 
         return(
             <section>
+                <hr/>
                 <header>
                     <h2>{title}</h2>
                 </header>
                 { loading && spinner()}
                 {movieList}
                 { (itemsLoaded < total) &&
-                    <button type={"Button"} onClick={this.loadMore}>
+                    <button type={"Button"}
+                            onClick={this.loadMore}
+                            style={styles.button}
+                    >
                         Load more ...
                     </button>
                 }

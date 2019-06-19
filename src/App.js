@@ -7,21 +7,14 @@ const genres = {
     comedy: 'Comedy Hits'
 }
 
-export default class App extends React.Component {
+const App = () => {
+    const sections = Object.keys(genres).map((genre) => (<Section genre={genre} title={genres[genre]} key={genre}/>));
 
-    state = {
-
-    }
-
-
-    render() {
-        const sections = Object.keys(genres).map((genre) => (<Section genre={genre} title={genres[genre]} key={genre}/>))
-
-        return (
-            <div>
-                <h2>App</h2>
-                {sections}
-            </div>
-        );
-    }
+    return (
+        <div>
+            {sections}
+        </div>
+    )
 }
+
+export default App

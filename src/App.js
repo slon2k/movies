@@ -9,6 +9,7 @@ export default class App extends React.Component {
 
     }
 
+
     render() {
         const sections = genres.map((genre) => (<Section genre={genre} key={genre}/>))
 

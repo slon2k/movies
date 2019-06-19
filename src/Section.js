@@ -38,7 +38,7 @@ export default class Section  extends React.Component {
         const {total} = this.state;
         const itemsLoaded = this.state.movies.length;
         if (itemsLoaded < total) {
-            const page = itemsLoaded / ITEMS_PER_PAGE + 1;
+            const page = Math.floor(itemsLoaded / ITEMS_PER_PAGE) + 1;
             this.api.getMovies({genre, page})
                 .then(({results})=>(this.addMovies({moviesToAdd: results})))
                 .catch(console.log)
